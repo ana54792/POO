@@ -1,0 +1,114 @@
+print("Digite Quatro números inteiros:")
+A = int(input())
+B = int(input())
+C = int(input())
+D = int(input())
+
+#2
+print("Informe o número so mês:")
+mes = int(input())
+if mes == 1:
+    print("O mês de janeiro é do primeiro trimestre do ano")
+elif mes == 2:
+    print("O mês de janeiro é do primeiro trimestre do ano")
+elif mes == 3:
+    print("O mês de janeiro é do primeiro trimestre do ano")
+elif mes == 4:
+    print("O mês de janeiro é do segundo trimestre do ano")
+elif mes == 5:
+    print("O mês de janeiro é do segundo trimestre do ano")
+elif mes == 6:
+    print("O mês de janeiro é do segundo trimestre do ano")
+elif mes == 7:
+    print("O mês de janeiro é do terceiro trimestre do ano")
+elif mes == 8:
+    print("O mês de janeiro é do terceiro trimestre do ano")
+elif mes == 9:
+    print("O mês de janeiro é do terceiro trimestre do ano")
+elif mes == 10:
+    print("O mês de janeiro é do quarto trimestre do ano")
+elif mes == 11:
+    print("O mês de janeiro é do quarto trimestre do ano")
+elif mes == 12:
+    print("O mês de janeiro é do quarto trimestre do ano")
+else:
+    print("Mês inválido")
+
+#3
+
+menor = A
+if B < menor: menor = B
+if C < menor: menor = C
+if D < menor: menor = D
+maior = A
+if B > maior: maior = B
+if C > maior: maior = C
+if D > maior: maior = D
+num = A
+teste = 1
+while teste == 1:
+    if B < maior and B > menor: num += B
+    if C < maior and C > menor: num += C
+    if D < maior and D > menor: num += D
+    teste = 0
+    
+
+print(f"Maior valor = {maior}")
+print(f"Menor valor = {menor}")
+print(f"A soma do segundo maior valor com o segundo menor = {num}")
+
+#4
+#5
+a = int(input())
+b = int(input())
+c = int(input())
+if a<b and b<c: print(a,b,c)
+elif a<c and c<b: print(a,c,b)
+elif b<c and c<a: print(b,c,a)
+elif b<a and a<c: print(b,a,c)
+elif c<b and b<a: print(c,b,a)
+elif c<a and a<b: print(c,a,b)
+
+#6
+pos = 1
+neg = -2
+#while pos < 9:
+
+
+#8
+s = input("Digite uma frase:")
+
+for k in range(len(s)):
+    s = s[1:] + s[0]
+    print(s)
+    
+#15
+def primo(n):
+    primo = True
+    for d in range(2, n):
+        if n % d == 0: 
+            primo = False
+            break
+    return primo
+    
+print("Digite um número inteiro")
+n = int(input())
+if primo(n):
+    print("É primo")
+else:
+    print("Não é primo")
+
+
+#primo = True
+#for d in range(2, n):
+#    if n % d == 0: 
+#        primo = False
+#        break
+#if primo:
+#    print("É primo")
+#else:
+#    print("Não é primo")
+    
+
+    
+    
