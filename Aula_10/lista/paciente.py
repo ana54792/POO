@@ -32,6 +32,6 @@ class Paciente:
         idad = datetime.now() - self.__nascimento  
         anos = idad.days // 365
         meses = idad.days % 365 // 30
-        return f"Idade = {anos} anos e {meses} meses"
+        return f"{anos} anos e {meses} meses"
     def __str__(self):
         return f"Nome = {self.__nome} - CPF = {self.__cpf} - Telefone = {self.__telefone} - Nascimento = {datetime.strftime(self.__nascimento, "%d/%m/%Y")}"
