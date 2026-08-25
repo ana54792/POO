@@ -4,5 +4,6 @@ from templates.manterservicoui import ManterServicoUI
 class IndexUI:
     def main():
         ManterClienteUI.main()
+        ManterServicoUI.main()
 
 IndexUI.main()

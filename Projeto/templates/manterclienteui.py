@@ -23,7 +23,7 @@ class ManterClienteUI:
         nome = st.text_input("Informe o nome")
         email = st.text_input("Informe o e-mail")
         fone = st.text_input("Informe o fone")
-        if st.button("Inserir"):
+        if st.button("Cadastrar", key="cadastro_cliente"):
             Service.cliente_inserir(nome, email, fone)
             st.success("Cliente inserido com sucesso")
             time.sleep(2)
@@ -36,7 +36,7 @@ class ManterClienteUI:
             nome = st.text_input("Novo nome", op.get_nome())
             email = st.text_input("Novo e-mail", op.get_email())
             fone = st.text_input("Novo fone", op.get_fone())
-            if st.button("Atualizar"):
+            if st.button("Atualizar", key="atualizar_cliente"):
                 id = op.get_id()
                 Service.cliente_atualizar(id, nome, email, fone)
                 st.success("Cliente atualizado com sucesso")
@@ -47,7 +47,7 @@ class ManterClienteUI:
         if len(clientes) == 0: st.write("Nenhum cliente cadastrado")
         else:
             op = st.selectbox("Exclusão de Clientes", clientes)
-            if st.button("Excluir"):
+            if st.button("Excluir", key="excluir_cliente"):
                 id = op.get_id()
                 Service.cliente_excluir(id)
                 st.success("Cliente excluído com sucesso")

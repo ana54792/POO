@@ -21,10 +21,9 @@ class ManterServicoUI:
             st.dataframe(df)
     def inserir():
         descricao = st.text_input("Informe a descrição do serviço")
-        email = st.text_input("Informe o e-mail")
-        fone = st.text_input("Informe o fone")
-        if st.button("Inserir"):
-            Service.servico_inserir(descricao, email, fone)
+        valor = st.text_input("Informe o valor")
+        if st.button("Cadastrar", key="cadastro_servico"):
+            Service.servico_inserir(descricao,  int(valor))
             st.success("Serviço inserido com sucesso")
             time.sleep(2)
             st.rerun()
@@ -34,11 +33,10 @@ class ManterServicoUI:
         else:
             op = st.selectbox("Atualização de servicos", servicos)
             descricao = st.text_input("Nova descrição", op.get_descricao())
-            email = st.text_input("Novo e-mail", op.get_email())
-            fone = st.text_input("Novo fone", op.get_fone())
-            if st.button("Atualizar"):
+            valor = st.text_input("Novo valor", op.get_valor())
+            if st.button("Atualizar", key="atualizar_servico"):
                 id = op.get_id()
-                Service.servico_atualizar(id, descricao, email, fone)
+                Service.servico_atualizar(id, descricao, int(valor))
                 st.success("Serviço atualizado com sucesso")
                 time.sleep(2)
                 st.rerun()
@@ -47,7 +45,7 @@ class ManterServicoUI:
         if len(servicos) == 0: st.write("Nenhum serviço cadastrado")
         else:
             op = st.selectbox("Exclusão de serviços", servicos)
-            if st.button("Excluir"):
+            if st.button("Excluir", key="excluir_servico"):
                 id = op.get_id()
                 Service.servico_excluir(id)
                 st.success("Serviço excluído com sucesso")
