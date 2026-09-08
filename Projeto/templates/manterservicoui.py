@@ -5,7 +5,7 @@ from service import Service
 
 class ManterServicoUI:
     def main():
-        st.header("Cadastro de serviços")
+        st.header("Cadastro de Serviços")
         tab1, tab2, tab3, tab4 = st.tabs(["Listar", "Inserir", "Atualizar", "Excluir"])
         with tab1: ManterServicoUI.listar()
         with tab2: ManterServicoUI.inserir()
@@ -20,10 +20,10 @@ class ManterServicoUI:
             df = pd.DataFrame(list_dic)
             st.dataframe(df)
     def inserir():
-        descricao = st.text_input("Informe a descrição do serviço")
+        descr = st.text_input("Informe a descrição")
         valor = st.text_input("Informe o valor")
-        if st.button("Cadastrar", key="cadastro_servico"):
-            Service.servico_inserir(descricao,  int(valor))
+        if st.button("Inserir"):
+            Service.servico_inserir(descr, float(valor))
             st.success("Serviço inserido com sucesso")
             time.sleep(2)
             st.rerun()
@@ -31,12 +31,12 @@ class ManterServicoUI:
         servicos = Service.servico_listar()
         if len(servicos) == 0: st.write("Nenhum serviço cadastrado")
         else:
-            op = st.selectbox("Atualização de servicos", servicos)
-            descricao = st.text_input("Nova descrição", op.get_descricao())
-            valor = st.text_input("Novo valor", op.get_valor())
-            if st.button("Atualizar", key="atualizar_servico"):
+            op = st.selectbox("Atualização de Serviços", servicos)
+            descr = st.text_input("Informe a nova descrição", op.get_descricao())
+            valor = st.text_input("Informe o novo valor", str(op.get_valor()))
+            if st.button("Atualizar"):
                 id = op.get_id()
-                Service.servico_atualizar(id, descricao, int(valor))
+                Service.servico_atualizar(id, descr, float(valor))
                 st.success("Serviço atualizado com sucesso")
                 time.sleep(2)
                 st.rerun()
@@ -44,8 +44,8 @@ class ManterServicoUI:
         servicos = Service.servico_listar()
         if len(servicos) == 0: st.write("Nenhum serviço cadastrado")
         else:
-            op = st.selectbox("Exclusão de serviços", servicos)
-            if st.button("Excluir", key="excluir_servico"):
+            op = st.selectbox("Exclusão de Serviços", servicos)
+            if st.button("Excluir"):
                 id = op.get_id()
                 Service.servico_excluir(id)
                 st.success("Serviço excluído com sucesso")
