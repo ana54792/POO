@@ -4,6 +4,8 @@ from models.servico import Servico
 from models.servicodao import ServicoDAO
 from models.horario import Horario
 from models.horariodao import HorarioDAO
+from models.atendimento import Atendimento
+from models.atendimentodao import AtendimentoDAO
 
 class Service:
     @staticmethod
@@ -67,3 +69,32 @@ class Service:
     @staticmethod
     def horario_excluir(id):
         HorarioDAO().excluir(id) 
+
+
+    @staticmethod
+    def atendimento_inserir(data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario):
+        c = Atendimento(0, data, queixa_principal, historico_saude, avaliacao, prescricao)
+        c.set_queixa_principal(queixa_principal)
+        c.set_historico_saude(historico_saude)
+        c.set_avaliacao(avaliacao)
+        c.set_prescricao(prescricao)
+        c.set_id_horario(id_horario)
+        AtendimentoDAO().inserir(c)
+    @staticmethod
+    def atendimento_listar():
+        return AtendimentoDAO().listar()
+    @staticmethod
+    def atendimento_listar_id(id):
+        return AtendimentoDAO().listar_id(id) 
+    @staticmethod
+    def atendimento_atualizar(data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario):
+        c = Atendimento(id, data, queixa_principal, historico_saude, avaliacao, prescricao)
+        c.set_queixa_principal(queixa_principal)
+        c.set_historico_saude(historico_saude)
+        c.set_avaliacao(avaliacao)
+        c.set_prescricao(prescricao)
+        c.set_id_horario(id_horario)
+        AtendimentoDAO().atualizar(c)
+    @staticmethod
+    def atendimento_excluir(id):
+        AtendimentoDAO().excluir(id) 
