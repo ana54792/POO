@@ -4,7 +4,7 @@ class UI:
     @staticmethod
     def main():
         op = 0
-        while op != 9:
+        while op != 17:
             op = UI.menu()
             if op == 1: UI.cliente_inserir()
             if op == 2: UI.cliente_listar()
@@ -14,6 +14,14 @@ class UI:
             if op == 6: UI.servico_listar()
             if op == 7: UI.servico_atualizar()
             if op == 8: UI.servico_excluir()
+            if op == 9: UI.horario_inserir()
+            if op == 10: UI.horario_listar()
+            if op == 11: UI.horario_atualizar()
+            if op == 12: UI.horario_excluir()
+            if op == 13: UI.atendimento_inserir()
+            if op == 14: UI.atendimento_listar()
+            if op == 15: UI.atendimento_atualizar()
+            if op == 16: UI.atendimento_excluir()
 
     @staticmethod
     def menu():
@@ -21,8 +29,12 @@ class UI:
         print("1-Inserir, 2-Listar, 3-Atualizar, 4-Excluir")
         print("----------- Cadastro de Serviços ----------")
         print("5-Inserir, 6-Listar, 7-Atualizar, 8-Excluir")
+        print("----------- Cadastro de Horários ----------")
+        print("9-Inserir, 10-Listar, 11-Atualizar, 12-Excluir")
+        print("----------- Cadastro de Atendimentos ----------")
+        print("13-Inserir, 14-Listar, 15-Atualizar, 16-Excluir")
         print("----------- Outras opções -----------------")
-        print("9-Fim")
+        print("17-Fim")
         return int(input("Informe uma opção: "))
 
     @staticmethod
@@ -39,7 +51,7 @@ class UI:
 
     @staticmethod
     def cliente_atualizar():
-        for obj in Service().cliente_listar(): print(obj)
+        for obj in Service.cliente_listar(): print(obj)
         id = int(input("Informe o id do cliente a ser atualizado: "))
         nome = input("Informe o novo nome: ")
         email = input("Informe o novo e-mail: ")
@@ -48,7 +60,7 @@ class UI:
 
     @staticmethod
     def cliente_excluir():
-        for obj in Service().cliente_listar(): print(obj)
+        for obj in Service.cliente_listar(): print(obj)
         id = int(input("Informe o id do cliente a ser excluído: "))
         Service.cliente_excluir(id)
 
@@ -76,5 +88,85 @@ class UI:
         for obj in Service.servico_listar(): print(obj)
         id = int(input("Informe o id do serviço a ser excluído: "))
         Service.servico_excluir(id)
+
+    ### parte do chatlgbt
+
+
+    @staticmethod
+    def horario_inserir():
+        data = input("Informe a data: ")
+        confirmado = input("Informe se está confirmado: ")
+        id_cliente = int(input("Informe o id do cliente: "))
+        id_servico = int(input("Informe o id do serviço: "))
+        Service.horario_inserir(data, confirmado, id_cliente, id_servico)
+
+    @staticmethod
+    def horario_listar():
+        for obj in Service.horario_listar(): print(obj)
+
+    @staticmethod
+    def horario_atualizar():
+        for obj in Service.horario_listar(): print(obj)
+        id = int(input("Informe o id do horário a ser atualizado: "))
+        data = input("Informe a nova data: ")
+        confirmado = input("Informe se está confirmado: ")
+        id_cliente = int(input("Informe o novo id do cliente: "))
+        id_servico = int(input("Informe o novo id do serviço: "))
+        Service.horario_atualizar(id, data, confirmado, id_cliente, id_servico)
+
+    @staticmethod
+    def horario_excluir():
+        for obj in Service.horario_listar(): print(obj)
+        id = int(input("Informe o id do horário a ser excluído: "))
+        Service.horario_excluir(id)
+
+    @staticmethod
+    def atendimento_inserir():
+        data = input("Informe a data: ")
+        queixa_principal = input("Informe a queixa principal: ")
+        historico_saude = input("Informe o histórico de saúde: ")
+        avaliacao = input("Informe a avaliação: ")
+        prescricao = input("Informe a prescrição: ")
+        id_horario = int(input("Informe o id do horário: "))
+
+        Service.atendimento_inserir(
+            data,
+            queixa_principal,
+            historico_saude,
+            avaliacao,
+            prescricao,
+            id_horario
+        )
+
+    @staticmethod
+    def atendimento_listar():
+        for obj in Service.atendimento_listar(): print(obj)
+
+    @staticmethod
+    def atendimento_atualizar():
+        for obj in Service.atendimento_listar(): print(obj)
+        id = int(input("Informe o id do atendimento a ser atualizado: "))
+        data = input("Informe a nova data: ")
+        queixa_principal = input("Informe a nova queixa principal: ")
+        historico_saude = input("Informe o novo histórico de saúde: ")
+        avaliacao = input("Informe a nova avaliação: ")
+        prescricao = input("Informe a nova prescrição: ")
+        id_horario = int(input("Informe o novo id do horário: "))
+
+        Service.atendimento_atualizar(
+            id,
+            data,
+            queixa_principal,
+            historico_saude,
+            avaliacao,
+            prescricao,
+            id_horario
+        )
+
+    @staticmethod
+    def atendimento_excluir():
+        for obj in Service.atendimento_listar(): print(obj)
+        id = int(input("Informe o id do atendimento a ser excluído: "))
+        Service.atendimento_excluir(id)
 
 UI.main()

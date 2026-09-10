@@ -19,7 +19,7 @@ class ManterAtendimentoUI:
         else:
             dic = []
             for obj in atendimentos:
-                horario = Service.horario_listar_id(obj.get_id_horario())
+                horario = Service.horario_listar_id(obj.get_id())
                 if horario != None: 
                     id_cliente = horario.get_id_cliente()
                     cliente = Service.cliente_listar_id(id_cliente)

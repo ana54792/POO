@@ -4,8 +4,8 @@ from models.servico import Servico
 from models.servicodao import ServicoDAO
 from models.horario import Horario
 from models.horariodao import HorarioDAO
-from models.atendimento import Atendimento
-from models.atendimentodao import AtendimentoDAO
+from models.departamento import Departamento
+from models.departamentodao import DepartamentoDAO
 
 class Service:
     @staticmethod
@@ -28,8 +28,9 @@ class Service:
 
 
     @staticmethod
-    def servico_inserir(descricao, valor):
+    def servico_inserir(descricao, valor, id_departamento):
         obj = Servico(0, descricao, valor)
+        obj.set_id_departamento(id_departamento)
         ServicoDAO().inserir(obj)
     @staticmethod
     def servico_listar():
@@ -38,8 +39,9 @@ class Service:
     def servico_listar_id(id):
         return ServicoDAO().listar_id(id)
     @staticmethod
-    def servico_atualizar(id, descricao, valor):
+    def servico_atualizar(id, descricao, valor, id_departamento):
         obj = Servico(id, descricao, valor)
+        obj.set_id_departamento(id_departamento)
         ServicoDAO().atualizar(obj)
     @staticmethod
     def servico_excluir(id):
@@ -72,29 +74,19 @@ class Service:
 
 
     @staticmethod
-    def atendimento_inserir(data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario):
-        c = Atendimento(0, data, queixa_principal, historico_saude, avaliacao, prescricao)
-        c.set_queixa_principal(queixa_principal)
-        c.set_historico_saude(historico_saude)
-        c.set_avaliacao(avaliacao)
-        c.set_prescricao(prescricao)
-        c.set_id_horario(id_horario)
-        AtendimentoDAO().inserir(c)
+    def departamento_inserir(nome, diretor, fone):
+        obj = Departamento(0, nome, diretor, fone)
+        DepartamentoDAO().inserir(obj)
     @staticmethod
-    def atendimento_listar():
-        return AtendimentoDAO().listar()
+    def departamento_listar():
+        return DepartamentoDAO().listar()
     @staticmethod
-    def atendimento_listar_id(id):
-        return AtendimentoDAO().listar_id(id) 
+    def departamento_listar_id(id):
+        return DepartamentoDAO().listar_id(id)
     @staticmethod
-    def atendimento_atualizar(id, data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario):
-        c = Atendimento(id, data, queixa_principal, historico_saude, avaliacao, prescricao)
-        c.set_queixa_principal(queixa_principal)
-        c.set_historico_saude(historico_saude)
-        c.set_avaliacao(avaliacao)
-        c.set_prescricao(prescricao)
-        c.set_id_horario(id_horario)
-        AtendimentoDAO().atualizar(c)
+    def departamento_atualizar(id, nome, diretor, fone):
+        obj = Departamento(id, nome, diretor, fone)
+        DepartamentoDAO().atualizar(obj)
     @staticmethod
-    def atendimento_excluir(id):
-        AtendimentoDAO().excluir(id) 
+    def departamento_excluir(id):
+        DepartamentoDAO().excluir(id)
