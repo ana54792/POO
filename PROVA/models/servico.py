@@ -22,16 +22,11 @@ class Servico:
     def get_id_departamento(self): return self.__id_departamento
 
     def __str__(self):
-        return f"{self.__id} - {self.__descricao} - {self.__valor}"
+        return f"{self.__id} - {self.__descricao} - {self.__valor} - {self.__id_departamento}"
     
     def to_json(self):
         return { "id":self.__id, "descricao":self.__descricao, "valor":self.__valor, "id_departamento":self.__id_departamento }
     
     @staticmethod
     def from_json(dic):
-        servi = Servico(dic["id"], dic["descricao"], dic["valor"])
-        servi.set_id_departamento(dic["id_departamento"])
-        return servi
-
-
-        
+        return Servico(dic["id"], dic["descricao"], dic["valor"], dic["id_departamento"])

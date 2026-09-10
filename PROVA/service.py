@@ -40,7 +40,7 @@ class Service:
         return ServicoDAO().listar_id(id)
     @staticmethod
     def servico_atualizar(id, descricao, valor, id_departamento):
-        obj = Servico(id, descricao, valor)
+        obj = Servico(id, descricao, valor, id_departamento)
         obj.set_id_departamento(id_departamento)
         ServicoDAO().atualizar(obj)
     @staticmethod
