@@ -49,7 +49,7 @@ class ManterDepartamentoUI:
             op = st.selectbox("Exclusão de Departamentos", departamentos)
             if st.button("Excluir"):
                 id = op.get_id()
-                Service.cliente_excluir(id)
+                Service.departamento_excluir(id)
                 st.success("Departamento excluído com sucesso")
                 time.sleep(2)
                 st.rerun()

@@ -29,7 +29,7 @@ class Service:
 
     @staticmethod
     def servico_inserir(descricao, valor, id_departamento):
-        obj = Servico(0, descricao, valor)
+        obj = Servico(0, descricao, valor, id_departamento)
         obj.set_id_departamento(id_departamento)
         ServicoDAO().inserir(obj)
     @staticmethod
