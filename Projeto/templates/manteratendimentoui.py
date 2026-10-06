@@ -26,6 +26,7 @@ class ManterAtendimentoUI:
                 "queixa principal" : obj.get_queixa_principal(), "cliente" : cliente})
             df = pd.DataFrame(dic)
             st.dataframe(df)
+        
 
     def inserir():
         horarios = Service.horario_listar()

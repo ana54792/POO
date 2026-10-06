@@ -122,6 +122,7 @@ class Service:
     def atendimento_listar():
         r = AtendimentoDAO().listar()
         r.sort(key = lambda obj : obj.get_data())
+        return r
     @staticmethod
     def atendimento_listar_id(id):
         return AtendimentoDAO().listar_id(id)
@@ -159,3 +160,12 @@ class Service:
             if c.get_email() == email and c.get_senha() == senha:
                 return {"id": c.get_id(), "nome": c.get_nome()}
         return None
+    @staticmethod
+    def horario_confirmar_servico(id_profissional):
+        r = []
+        for h in Service.horario_listar():
+            if h.get_confirmado() == False \
+            and h.get_id_cliente() != None and h.get_id_profissional() == id_profissional:
+                r.append(h)
+        r.sort (key = lambda h : h.get_data())
+        return r
