@@ -73,7 +73,7 @@ class Service:
         c.set_id_profissional(id_profissional)
         HorarioDAO().inserir(c)
     @staticmethod
-    def horario_listar():
+    def horario_listar(): # select - order by
         r = HorarioDAO().listar()
         r.sort(key = lambda obj : obj.get_data())
         return r
@@ -112,8 +112,32 @@ class Service:
             Service.horario_inserir(x, False, None, None, id_profissional)
             # passar para o horário seguinte
             x = x + delta
-    
-
+    @staticmethod
+    def horario_visualizar_minha_agenda(id_profissional):
+        r = []
+        for h in Service.horario_listar():
+            if h.get_id_profissional() == id_profissional:
+                r.append(h)
+        r.sort (key = lambda h : h.get_data())
+        return r
+    @staticmethod
+    def horario_visualizar_meus_servicos(id_cliente): # select - where
+        r = []
+        for h in Service.horario_listar():
+            if h.get_id_cliente() == id_cliente:
+                r.append(h)
+        r.sort (key = lambda h : h.get_data())
+        return r
+    @staticmethod
+    def horario_confirmar_servico(id_profissional):
+        r = []
+        for h in Service.horario_listar():
+            if h.get_confirmado() == False \
+            and h.get_id_cliente() != None and h.get_id_profissional() == id_profissional:
+                r.append(h)
+        r.sort (key = lambda h : h.get_data())
+        return r
+       
     @staticmethod
     def atendimento_inserir(data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario):
         obj = Atendimento(0, data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario)
@@ -160,12 +184,3 @@ class Service:
             if c.get_email() == email and c.get_senha() == senha:
                 return {"id": c.get_id(), "nome": c.get_nome()}
         return None
-    @staticmethod
-    def horario_confirmar_servico(id_profissional):
-        r = []
-        for h in Service.horario_listar():
-            if h.get_confirmado() == False \
-            and h.get_id_cliente() != None and h.get_id_profissional() == id_profissional:
-                r.append(h)
-        r.sort (key = lambda h : h.get_data())
-        return r
