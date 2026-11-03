@@ -9,10 +9,18 @@ from models.atendimentodao import AtendimentoDAO
 from models.profissional import Profissional
 from models.profissionaldao import ProfissionalDAO
 from datetime import datetime, timedelta
+import streamlit as st
 
 class Service:
     @staticmethod
     def cliente_inserir(nome, email, fone, senha):
+        for obj in Service.cliente_listar():
+            if obj.get_email() == email or email == "admin":
+                raise ValueError("Email já cadastrado")
+        for obj in Service.profissional_listar():
+                    if obj.get_email() == email or email == "admin":
+                        raise ValueError("Email já cadastrado")
+            
         obj = Cliente(0, nome, email, fone, senha)
         ClienteDAO().inserir(obj)
     @staticmethod
@@ -25,10 +33,19 @@ class Service:
         return ClienteDAO().listar_id(id)
     @staticmethod
     def cliente_atualizar(id, nome, email, fone, senha):
+        for obj in Service.cliente_listar():
+            if obj.get_id() != id and obj.get_email() == email:
+                raise ValueError("Email já cadastrado")
+        for obj in Service.profissional_listar():
+            if obj.get_id() != id and obj.get_email() == email:
+                raise ValueError("Email já cadastrado")
         obj = Cliente(id, nome, email, fone, senha)
         ClienteDAO().atualizar(obj)
     @staticmethod
     def cliente_excluir(id):
+        for obj in Service.horario_listar():
+            if obj.get_id_cliente() == id:
+                raise ValueError("Cliente tem horário agendado")
         ClienteDAO().excluir(id)
     @staticmethod
     def cliente_criar_admin():
@@ -66,6 +83,9 @@ class Service:
 
     @staticmethod
     def horario_inserir(data, confirmado, id_cliente, id_servico, id_profissional):
+        for obj in Service.horario_listar():
+            if obj.get_data() == data and obj.get_id_profissional() == id_profissional:
+                raise ValueError("Esse horário já está preenchido")
         c = Horario(0, data)
         c.set_confirmado(confirmado)
         c.set_id_cliente(id_cliente)
@@ -82,6 +102,9 @@ class Service:
         return HorarioDAO().listar_id(id) 
     @staticmethod
     def horario_atualizar(id, data, confirmado, id_cliente, id_servico, id_profissional):
+        for obj in Service.horario_listar():
+            if obj.get_id() != id and obj.get_data() == data and obj.get_id_profissional() == id_profissional:
+                raise ValueError("Esse horário já está preenchido")
         c = Horario(id, data)
         c.set_confirmado(confirmado)
         c.set_id_cliente(id_cliente)
@@ -90,6 +113,9 @@ class Service:
         HorarioDAO().atualizar(c)
     @staticmethod
     def horario_excluir(id):
+        for obj in Service.horario_listar():
+            if obj.get_id_cliente() != 0:
+                raise ValueError("Horário já está agendado")
         HorarioDAO().excluir(id) 
     @staticmethod
     def horario_listar_disponiveis(id_profissional):
@@ -137,7 +163,26 @@ class Service:
                 r.append(h)
         r.sort (key = lambda h : h.get_data())
         return r
+    @staticmethod
+    def horario_listar_confirmados_hoje(id, data, id_cliente, id_serviço, id_profissional):
+        c = []
+        for h in Service.horario_listar():
+            if (h.get_confirmado() == True and h.get_data().date() == datetime.now().date()):
+                c.append(h)
+        c.sort (key = lambda h : h.get_data())
+        return c
+    def horario_listar_agenda_profissional(id, data, id_cliente, id_serviço, id_profissional):
+        d = []
+        profissionais = Service.profissional_listar()
+        profissional = st.selectbox("Informe o profissional", profissionais, index = None)
+        for h in Service.horario_listar():
+            if h.get_id_profissional() == profissional:
+                d.append(h)
+        d.sort (key = lambda h : h.get_data())
+        return d
        
+
+
     @staticmethod
     def atendimento_inserir(data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario):
         obj = Atendimento(0, data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario)
@@ -161,6 +206,13 @@ class Service:
 
     @staticmethod
     def profissional_inserir(nome, email, especialidade, senha):
+        for obj in Service.cliente_listar():
+            if obj.get_email() == email or email == "admin":
+                raise ValueError("Email já cadastrado")
+        for obj in Service.profissional_listar():
+            if obj.get_email() == email or email == "admin":
+                raise ValueError("Email já cadastrado")
+                    
         obj = Profissional(0, nome, email, especialidade, senha)
         ProfissionalDAO().inserir(obj)
     @staticmethod
@@ -173,10 +225,19 @@ class Service:
         return ProfissionalDAO().listar_id(id)
     @staticmethod
     def profissional_atualizar(id, nome, email, especialidade, senha):
+        for obj in Service.cliente_listar():
+            if obj.get_id() != id and obj.get_email() == email:
+                raise ValueError("Email já cadastrado")
+        for obj in Service.profissional_listar():
+            if obj.get_id() != id and obj.get_email() == email:
+                raise ValueError("Email já cadastrado")
         obj = Profissional(id, nome, email, especialidade, senha)
         ProfissionalDAO().atualizar(obj)
     @staticmethod
     def profissional_excluir(id):
+        for obj in Service.horario_listar():
+            if obj.get_id_profissional() == id:
+                raise ValueError("Profissional tem horário agendado")
         ProfissionalDAO().excluir(id)
     @staticmethod
     def profissional_autenticar(email, senha):
