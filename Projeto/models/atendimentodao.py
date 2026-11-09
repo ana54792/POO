@@ -1,42 +1,10 @@
 from models.atendimento import Atendimento
+from models.dao import DAO
 import json
 
-class AtendimentoDAO:
+class AtendimentoDAO(DAO):
     def __init__(self):
-        self.__arquivo = "atendimentos.json"
-        self.__objetos = []
-        self.__abrir()
-
-    def inserir(self, obj):
-        # gerar um novo id com o maior valor existente mais um
-        id = 0
-        if len(self.__objetos) > 0:
-            for aux in self.__objetos:
-                if aux.get_id() > id: id = aux.get_id()
-        obj.set_id(id + 1)
-        self.__objetos.append(obj)
-        self.__salvar()
-
-    def listar(self):                
-        return self.__objetos
-
-    def listar_id(self, id):
-        for obj in self.__objetos:
-            if obj.get_id() == id: return obj
-        return None
-
-    def atualizar(self, obj):
-        aux = self.listar_id(obj.get_id())
-        if aux != None:
-            self.__objetos.remove(aux)
-            self.__objetos.append(obj)
-            self.__salvar()
-
-    def excluir(self, id):
-        aux = self.listar_id(id)
-        if aux != None:
-            self.__objetos.remove(aux)
-            self.__salvar()
+        super().__init__("clientes.json")
 
     def __abrir(self):  
         try:  
