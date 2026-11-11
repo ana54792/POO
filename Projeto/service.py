@@ -8,6 +8,7 @@ from models.atendimento import Atendimento
 from models.atendimentodao import AtendimentoDAO
 from models.profissional import Profissional
 from models.profissionaldao import ProfissionalDAO
+
 from datetime import datetime, timedelta
 import streamlit as st
 
@@ -171,6 +172,7 @@ class Service:
                 c.append(h)
         c.sort (key = lambda h : h.get_data())
         return c
+    @staticmethod
     def horario_listar_agenda_profissional(id, data, id_cliente, id_serviço, id_profissional):
         d = []
         profissionais = Service.profissional_listar()
@@ -180,6 +182,16 @@ class Service:
                 d.append(h)
         d.sort (key = lambda h : h.get_data())
         return d
+    @staticmethod
+    def horario_mostrar_agenda_semana(id, data, id_cliente, id_serviço, id_profissional):
+        e = []
+        setedias = timedelta(days = 7)
+        xdias = datetime.now().date() + setedias
+        for h in Service.horario_listar():
+            if h.get_data().date() >= datetime.now().date() and h.get_data().date() <= xdias:
+                e.append(h)
+        e.sort (key = lambda h : h.get_data().date())
+        return e
        
 
 
